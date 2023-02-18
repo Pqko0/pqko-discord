@@ -12,7 +12,7 @@ npm i pqko-discord discord.js
 ```
 
 ## Slash Command Handler Usage
-
+Video : https://youtu.be/WAwmOyKhNFg
 This is the basic setup for the handler
 ```js
 const PqkoDiscord = require("pqko-discord")
