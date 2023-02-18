@@ -2,6 +2,8 @@ const BASE_URL = "https://discord.com/api"
 
 const API_URL = BASE_URL + "/oauth2/token"
 
+const AUTH_API  = BASE_URL +  "/oauth2/@me"
+
 const USER_API = BASE_URL + "/users/@me"
 
 const USER_CONNECTIONS_API = "/users/@me/connections"
@@ -43,6 +45,26 @@ class OAuth2 {
                 }
             })
         })  
+    }
+
+    async validateAccessToken(AccessToken) {
+        return new Promise(async (res, rej) => {
+            await axios.get(AUTH_API, {
+                headers: {
+                    authorization: `Bearer ${AccessToken}`,
+                    "Accept-Encoding": "gzip,deflate,compress",
+                }
+            }).then((x) => {
+                return res(x.data)
+            }).catch((x) => {
+                console.log(x)
+                if(x.response) {
+                    return res(x.response.data)
+                } else {
+                    return rej("Failed request to api!")
+                }
+            })
+        })
     }
 
     async refreshToken(refreshtoken) {

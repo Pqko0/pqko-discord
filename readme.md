@@ -12,7 +12,7 @@ npm i pqko-discord discord.js
 ```
 
 ## Slash Command Handler Usage
-Video : https://youtu.be/WAwmOyKhNFg
+Video : https://youtu.be/WAwmOyKhNFg \n.
 This is the basic setup for the handler
 ```js
 const PqkoDiscord = require("pqko-discord")
@@ -37,6 +37,8 @@ module.exports = {
 
 This is the JSON handler. This is slightly harder to check for errors.
 ```js
+const { SlashCommandBuilder } = require('discord.js')
+
 const commands = [
     {
         data: new SlashCommandBuilder().setName("test").setDescription("This is the first command with pqko-discord!"),
@@ -50,7 +52,7 @@ pqko.jsonHandler(commands)
 ```
 
 ## OAuth2 Usage
-
+Video : https://youtu.be/9pZnQnue_h8 \n.
 Basic Setup
 ```js
 const PqkoDiscord = require("pqko-discord")
@@ -111,5 +113,34 @@ OAuth2.joinServer(guild_id, user_id, access_token).then((x) => {
 })
 ```
 
-## Express Auth Handler
-Coming soon...
+## Discord Auth (Express Only) 
+
+__THIS IS IN BETA__
+
+Video: coming soon.. \n.
+Basic Setup
+```js
+const OAuth2Link = "..."
+
+const PqkoDiscord = require("pqko-discord")
+const OAuth2 = new PqkoDiscord.OAuth2(client_id, client_secret, token, redirect_url)
+const auth = new PqkoDiscord.Auth.DiscordAuth(OAuth2)
+const express = require('express')
+const app = express()
+
+app.use(PqkoDiscord.Auth.cookieparser)
+app.use(auth.__express(OAuth2)) // Creates to Request Headers ( req.user + req.logged )
+app.get("/login", async (req, res) => {
+    if(req.logged == true) return res.redirect("/dashboard") // Logged in redirect
+
+    if(req.query.code) {
+        const x = await auth.login(req, res) // Pases through 3 things ( message, account + token )
+
+        if(x.message == 1 && x.account == 1) {
+            res.cookie("token", x.token)
+
+            return res.redirect("/dashboard");
+        } else return res.redirect(OAuth2Link)
+    } else return res.redirect(OAuth2Link)
+})
+```
