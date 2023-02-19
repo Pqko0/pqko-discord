@@ -117,7 +117,7 @@ OAuth2.joinServer(guild_id, user_id, access_token).then((x) => {
 
 __THIS IS IN BETA__
 
-Video: coming soon..\
+Video: https://youtu.be/OUjGLzNTTUQ \
 Basic Setup
 ```js
 const { client_id, client_secret, token } = require("./config.json") // Your config file
