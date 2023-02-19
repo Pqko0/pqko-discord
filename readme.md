@@ -1,5 +1,5 @@
 ## Pqko Discord
-Pqko Discord is a private project for future usage!
+Pqko Discord is a private project for future usage! \
 Even though its a private project if you wish support join: https://discord.gg/vwxya3gHJQ
 
 ## Notice
@@ -12,7 +12,7 @@ npm i pqko-discord discord.js
 ```
 
 ## Slash Command Handler Usage
-Video : https://youtu.be/WAwmOyKhNFg \n.
+Video : https://youtu.be/WAwmOyKhNFg \
 This is the basic setup for the handler
 ```js
 const PqkoDiscord = require("pqko-discord")
@@ -52,7 +52,7 @@ pqko.jsonHandler(commands)
 ```
 
 ## OAuth2 Usage
-Video : https://youtu.be/9pZnQnue_h8 \n.
+Video : https://youtu.be/9pZnQnue_h8 \
 Basic Setup
 ```js
 const PqkoDiscord = require("pqko-discord")
@@ -117,8 +117,8 @@ OAuth2.joinServer(guild_id, user_id, access_token).then((x) => {
 
 __THIS IS IN BETA__
 
-Video: coming soon.. \n.
-Basic Setup
+Video: coming soon..\
+Basic Setup\
 ```js
 const OAuth2Link = "..."
 
