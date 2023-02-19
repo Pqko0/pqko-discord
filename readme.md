@@ -86,7 +86,7 @@ OAuth2.getUser(access_token).then((x) => {
 })
 ```
 
-Get connections - connections requried
+Get connections - connections required
 ```js
 OAuth2.getUserConnections(access_token).then((x) => {
     console.log(x)
@@ -118,7 +118,7 @@ OAuth2.joinServer(guild_id, user_id, access_token).then((x) => {
 __THIS IS IN BETA__
 
 Video: coming soon..\
-Basic Setup\
+Basic Setup
 ```js
 const OAuth2Link = "..."
 
