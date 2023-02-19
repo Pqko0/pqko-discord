@@ -120,17 +120,21 @@ __THIS IS IN BETA__
 Video: coming soon..\
 Basic Setup
 ```js
-const OAuth2Link = "..."
+const { client_id, client_secret, token } = require("./config.json") // Your config file
+const OAuth2Link = "..." // https://discord.com/developers/applications/.../oauth2/url-generator
 
 const PqkoDiscord = require("pqko-discord")
-const OAuth2 = new PqkoDiscord.OAuth2(client_id, client_secret, token, redirect_url)
-const auth = new PqkoDiscord.Auth.DiscordAuth(OAuth2)
+const OAuth2 = new PqkoDiscord.OAuth2(client_id, client_secret, token, "http://localhost:5014/login") // Change the last part to your website must keep /login
+const auth = new PqkoDiscord.Auth.DiscordAuth(OAuth2) // Required for discord auth
 const express = require('express')
 const app = express()
 
-app.use(PqkoDiscord.Auth.cookieparser)
-app.use(auth.__express(OAuth2)) // Creates to Request Headers ( req.user + req.logged )
-app.get("/login", async (req, res) => {
+app.use(PqkoDiscord.Auth.cookieparser()) // cookie-parser but built in
+.use(auth.__express(OAuth2)) // Creates to Request Headers ( req.user + req.logged )
+.get("/", (req, res) => {
+    res.send("Your site here!")
+})
+.get("/login", async (req, res) => { // Whatever the first argument it must be the redirect link
     if(req.logged == true) return res.redirect("/dashboard") // Logged in redirect
 
     if(req.query.code) {
@@ -143,4 +147,14 @@ app.get("/login", async (req, res) => {
         } else return res.redirect(OAuth2Link)
     } else return res.redirect(OAuth2Link)
 })
+.get("/logout", (req, res) => {
+    if(req.logged == false) return res.redirect("/") // Not logged redirect to home page 
+
+    auth.logout(req, res) // Passes nothing back
+    return res.redirect("/")
+})
+.get("/dashboard", (req, res) => {
+    res.send(req.user)
+})
+.listen(5014, () => console.log("http://localhost:5014/"))
 ```

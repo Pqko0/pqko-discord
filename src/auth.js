@@ -83,25 +83,25 @@ methods.DiscordAuth = class {
  *  - Database requried (MongoDB)
  */
 
-// methods.LocalAuth = class {
-//   constructor(OAuth2, encryptionString) {
-//     this.API = OAuth2;
-//     this.encodeString = encryptionString;
-//     this.encode = (data) => sha256.hmac(encryptionString, sha224(data));
-//   }
+methods.LocalAuth = class {
+  constructor(OAuth2, encryptionString) {
+    this.API = OAuth2;
+    this.encodeString = encryptionString;
+    this.encode = (data) => sha256.hmac(encryptionString, sha224(data));
+  }
 
-//   /**
-//    *
-//    * @param {Request} req
-//    * @param {Response} res
-//    * @param {Next} next
-//    */
-//   __express(req, res, next) {
-//     return new Promise(async (res, rej) => {
-
-//     })
-//   }
-// }; Idk what you are here but enjoy the code ig
+  /**
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {Next} next
+   */
+  __express(req, res, next) {
+    return new Promise(async (res, rej) => {
+      
+    })
+  }
+}; 
 
 methods.cookieparser = cp;
 
