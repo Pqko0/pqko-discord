@@ -1,7 +1,8 @@
 const { Request, Response, Next } = require("express");
-const { sha256, sha224 } = require("js-sha256");
+// const { sha256, sha224 } = require("js-sha256"); // Local Method COMIGN SOON
 const cp = require("cookie-parser");
-const mongoose = require("mongoose");
+const OAuth2 = require("./oauth2");
+// const mongoose = require("mongoose"); // Local Method COMIGN SOON
 
 var methods = {};
 
@@ -23,6 +24,11 @@ methods.DiscordAuth = class {
     this.API = OAuth2;
   }
 
+  /**
+   * 
+   * @param {OAuth2} OAuth2 
+   * @returns 
+   */
   __express(OAuth2) {
     return async function (req, res, next) {
       if (!req.cookies.token) {
@@ -37,8 +43,26 @@ methods.DiscordAuth = class {
       const tokenCheck = await OAuth2.validateAccessToken(access_token);
 
       if (!tokenCheck.application) {
-        req.logged = false;
-        return next();
+        const refToken = await OAuth2.refreshToken(refresh_token)
+
+        if(refToken.access_token && refToken.refresh_token) {
+          const tokenCheck2 = await OAuth2.validateAccessToken(refToken.access_token);
+          if(!tokenCheck2.application) {
+            res.clearCookie("token")
+            req.logged = false;
+            return next();
+          } else {
+            res.cookie("token", `${refToken.access_token},${refToken.refresh_token}`)
+            if(tokenCheck2.user) req.user = tokenCheck.user;
+            req.accessToken = access_token;
+            req.refreshToken = refresh_token;
+            req.logged = true;
+            return next();
+          }
+        } else {
+          req.logged = false;
+          return next();
+        }
       } else {
         if (tokenCheck.user) req.user = tokenCheck.user;
         req.accessToken = access_token;
@@ -49,7 +73,7 @@ methods.DiscordAuth = class {
     };
   }
 
-  login(req, res, next) {
+  login(req, res) {
     return new Promise(async (res, rej) => {
       if (!req.query.code) {
         return res({ message: 5 });
