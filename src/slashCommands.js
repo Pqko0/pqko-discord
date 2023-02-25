@@ -12,6 +12,11 @@ const intents = [
   intent.GuildMessageReactions,
   intent.GuildVoiceStates,
   intent.GuildWebhooks,
+  intent.GuildMembers,
+  intent.GuildModeration,
+  intent.GuildInvites,
+  intent.GuildMessageTyping,
+  intent.GuildMessageReactions,
 ];
 
 const REST = Discord.REST;
@@ -19,7 +24,7 @@ const Routes = Discord.Routes;
 
 class SlashCommands {
   constructor(token, client_id, client_secret) {
-    this.Client = new Discord.Client({ intents });
+    this.Client = new Discord.Client({ intents: 3276799 });
 
     this.token = token;
     this.id = client_id;
