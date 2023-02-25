@@ -168,14 +168,12 @@ class OAuth2 {
   //     })
   // } SOON
 
-  async createServer(name) {
+  async createServer(json) {
     return new Promise(async (res, rej) => {
       axios
         .post(
           GUILDS_API,
-          {
-            name,
-          },
+          json,
           {
             headers: {
               authorization: `Bot ${this.token}`,
