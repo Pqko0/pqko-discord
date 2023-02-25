@@ -1,10 +1,3 @@
-const {client_id, client_secret, token } = require("./config.json")
-
-const pqko = require("./index")
-const oauth = new pqko.OAuth2(client_id, client_secret, token, "http://localhost:9552/redirect")
-
-// oauth.codeValidation("oI0rVHdx8lrIDyUGFmIg8iISeFVKaT").then((x) => console.log(x))
-
 // oauth.validateAccessToken("y6eKiNaxvopNbido4aLQxyiDg0pPCa").then((x) => console.log(x))
 
 // oauth.getUserConnections("y6eKiNaxvopNbido4aLQxyiDg0pPCa").then((x) => console.log(x))
