@@ -1,6 +1,6 @@
 {
   "name": "pqko-discord",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A slash command handler with some extra features!",
   "main": "index.js",
   "author": "Pqko",
