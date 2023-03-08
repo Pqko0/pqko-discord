@@ -3,38 +3,19 @@ const { glob } = require("glob");
 const proGlob = promisify(glob);
 
 const Discord = require("discord.js");
-const intent = Discord.GatewayIntentBits;
-const intents = [
-  intent.Guilds,
-  intent.GuildMessages,
-  intent.MessageContent,
-  intent.DirectMessages,
-  intent.GuildMessageReactions,
-  intent.GuildVoiceStates,
-  intent.GuildWebhooks,
-  intent.GuildMembers,
-  intent.GuildModeration,
-  intent.GuildInvites,
-  intent.GuildMessageTyping,
-  intent.GuildMessageReactions,
-];
 
 const REST = Discord.REST;
 const Routes = Discord.Routes;
 
 class SlashCommands {
-  constructor(token, client_id, client_secret) {
-    this.Client = new Discord.Client({ intents: 3276799 });
+  constructor(token, client_id, client_secret, discord_client) {
+    this.Client = discord_client;
 
     this.token = token;
     this.id = client_id;
     this.secret = client_secret;
     this.commands = new Discord.Collection();
     this.Client.on("interactionCreate", (x) => interactionManager(x, this.Client, this.commands))
-  }
-
-  export() {
-    return this.Client;
   }
 
   login() {
