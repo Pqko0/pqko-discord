@@ -20,7 +20,7 @@ const GUILD_JOIN_API = BASE_URL + "/guilds/";
 const axios = require("axios").default;
 
 class OAuth2 {
-  constructor(client_id, client_secret, token, redirect_url) {
+  constructor(token, client_id, client_secret, redirect_url) {
     this.id = client_id;
     this.secret = client_secret;
     this.url = redirect_url;

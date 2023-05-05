@@ -1,8 +1,19 @@
 // const { Request, Response, Next } = require("express");
-// const { sha256, sha224 } = require("js-sha256"); // Local Method COMIGN SOON
+// const { sha256, sha224 } = require("js-sha256");
 const cp = require("cookie-parser");
 const OAuth2 = require("./oauth2");
-// const mongoose = require("mongoose"); // Local Method COMIGN SOON
+// const mongoose = require("mongoose");
+
+// const tokenSchema = mongoose.Schema({
+//   userId: {
+//     type: String,
+//     required: true
+//   },
+//   token: {
+//     type: String,
+//     unique: true,
+//   }
+// })
 
 var methods = {};
 
@@ -107,25 +118,34 @@ methods.DiscordAuth = class {
  *  - Database requried (MongoDB)
  */
 
-methods.LocalAuth = class {
-  constructor(OAuth2, encryptionString) {
-    this.API = OAuth2;
-    this.encodeString = encryptionString;
-    this.encode = (data) => sha256.hmac(encryptionString, sha224(data));
-  }
+// methods.LocalAuth = class {
+//   constructor(OAuth2, encryptionString) {
+//     this.API = OAuth2;
+//     this.encodeString = encryptionString;
+//     this.encode = (data) => sha256.hmac(encryptionString, sha224(data));
+//   }
 
-  /**
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {Next} next
-   */
-  __express(req, res, next) {
-    return new Promise(async (res, rej) => {
-      
-    })
-  }
-}; 
+//   /**
+//    *
+//    * @param {Request} req
+//    * @param {Response} res
+//    * @param {Next} next
+//    */
+//   __express(req, res, next) {
+//     return new Promise(async (res, rej) => {
+//       if(req.cookies.token) {
+
+//       } else {
+
+//       }
+//     })
+//   }
+
+//   logout(req, res) {
+//     if(req.cookies.token) res.clearCookie("token")
+//     return;
+//   }
+// }; 
 
 methods.cookieparser = cp;
 

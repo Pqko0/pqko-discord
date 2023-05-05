@@ -117,3 +117,5 @@ class eventHandler {
         })
     }
 }
+
+module.exports = eventHandler;
