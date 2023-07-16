@@ -6,4 +6,4 @@ https://docs.pqko.xyz/
 
 https://join.pqko.xyz/ 
 or
-Pqko#0117
+@pqko

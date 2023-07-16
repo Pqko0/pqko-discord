@@ -101,6 +101,8 @@ class eventHandler {
 
             const ev = await checkEvent(event.name)
 
+            const execute = (...args) => event.execute(...args, this.discord_client);
+
             if(ev == 1) return console.log("Invalid event: " + event.name)
 
             try {

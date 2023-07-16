@@ -110,43 +110,6 @@ methods.DiscordAuth = class {
   }
 };
 
-/**
- * Local Auth Method:
- *  - Uses local generated tokens
- *  - Fully manage users
- *  - Uses less resources
- *  - Database requried (MongoDB)
- */
-
-// methods.LocalAuth = class {
-//   constructor(OAuth2, encryptionString) {
-//     this.API = OAuth2;
-//     this.encodeString = encryptionString;
-//     this.encode = (data) => sha256.hmac(encryptionString, sha224(data));
-//   }
-
-//   /**
-//    *
-//    * @param {Request} req
-//    * @param {Response} res
-//    * @param {Next} next
-//    */
-//   __express(req, res, next) {
-//     return new Promise(async (res, rej) => {
-//       if(req.cookies.token) {
-
-//       } else {
-
-//       }
-//     })
-//   }
-
-//   logout(req, res) {
-//     if(req.cookies.token) res.clearCookie("token")
-//     return;
-//   }
-// }; 
-
 methods.cookieparser = cp;
 
 module.exports = methods;

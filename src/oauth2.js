@@ -149,24 +149,24 @@ class OAuth2 {
     });
   }
 
-  // async getUserRoleConnections(access_token, applicationID) {
-  //     return new Promise((res, rej) => {
-  //         axios.get(USER_ROLE_CONNECTIONS_API(applicationID), {
-  //             headers: {
-  //                 authorization: `Bearer ${access_token}`,
-  //                 "Accept-Encoding": "gzip,deflate,compress",
-  //             }
-  //         }).then((x) => {
-  //             return res(x.data)
-  //         }).catch((x) => {
-  //             if(x.response) {
-  //                 return res(x.response.data)
-  //             } else {
-  //                 return rej("Failed request at getUserRoleConnections")
-  //             }
-  //         })
-  //     })
-  // } SOON
+  async getUserRoleConnections(access_token, applicationID) {
+      return new Promise((res, rej) => {
+          axios.get(USER_ROLE_CONNECTIONS_API(applicationID), {
+              headers: {
+                  authorization: `Bearer ${access_token}`,
+                  "Accept-Encoding": "gzip,deflate,compress",
+              }
+          }).then((x) => {
+              return res(x.data)
+          }).catch((x) => {
+              if(x.response) {
+                  return res(x.response.data)
+              } else {
+                  return rej("Failed request at getUserRoleConnections")
+              }
+          })
+      })
+    }
 
   async createServer(json) {
     return new Promise(async (res, rej) => {
