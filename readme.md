@@ -1,9 +1,7 @@
 ## Documentation
 
-https://docs.pqko.xyz/
+[https://docs.pqko.xyz/](https://pqko.gitbook.io/)
 
 ## Support
 
-https://join.pqko.xyz/ 
-or
-@pqko
+Leave on github issues.
