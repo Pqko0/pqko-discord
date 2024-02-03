@@ -2,18 +2,6 @@
 // const { sha256, sha224 } = require("js-sha256");
 const cp = require("cookie-parser");
 const OAuth2 = require("./oauth2");
-// const mongoose = require("mongoose");
-
-// const tokenSchema = mongoose.Schema({
-//   userId: {
-//     type: String,
-//     required: true
-//   },
-//   token: {
-//     type: String,
-//     unique: true,
-//   }
-// })
 
 var methods = {};
 
@@ -72,6 +60,7 @@ methods.DiscordAuth = class {
           }
         } else {
           req.logged = false;
+          res.clearCookie("token");
           return next();
         }
       } else {
@@ -79,6 +68,27 @@ methods.DiscordAuth = class {
         req.accessToken = access_token;
         req.refreshToken = refresh_token;
         req.logged = true;
+        req.newRefreshToken = async function(newRefToken) {
+          const newToken = await OAuth2.refreshToken(newRefToken)
+          if(newToken.access_token && newToken.refresh_token) {
+            const newTokens = await OAuth2.validateAccessToken(newToken.access_token);
+            if(!newTokens.application) {
+              res.clearCookie("token")
+              req.logged = false;
+              return next();
+            } else {
+              res.cookie("token", `${newToken.access_token},${newToken.refresh_token}`)
+              if(newTokens.user) req.user = tokenCheck.user;
+              req.accessToken = access_token;
+              req.refreshToken = refresh_token;
+              req.logged = true;
+              return next();
+            }
+          } else {
+            req.logged = false;
+            res.clearCookie("token");
+          }
+        }
         return next();
       }
     };
@@ -99,6 +109,7 @@ methods.DiscordAuth = class {
           message: 1,
           account: 1,
           token: `${data.access_token},${data.refresh_token}`,
+          scopes: data.scope
         });
       }
     });
